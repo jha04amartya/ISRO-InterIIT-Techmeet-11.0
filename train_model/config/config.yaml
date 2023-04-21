@@ -1,0 +1,43 @@
+checkpoint_path:
+  phase_1: "checkpoints/phase_1"
+  phase_2: "checkpoints/phase_2"
+
+dataset: 
+  name: "div2k"
+  scale_method: "bicubic"
+  hr_dimension: 512
+
+print_step: 1000
+
+interpolation_parameter: 0.8 
+RDB:
+  residual_scale_beta: 0.2
+
+batch_size: 32
+train_psnr:
+  num_steps: 600000
+  adam:
+    initial_lr: 0.0002 
+    decay:
+      factor: 0.5
+      step: 200000 
+    beta_1: 0.9
+    beta_2: 0.999
+train_combined:
+  perceptual_loss_type: "L1" 
+  num_steps: 400000
+  lambda: !!float 5e-3
+  eta: !!float 1e-2
+  adam:
+    initial_lr: !!float 5e-5
+    beta_1: 0.9
+    beta_2: 0.999
+    decay:
+      factor: 0.5
+      step:
+        - 9000
+        - 30000
+        - 50000
+        - 100000
+        - 200000
+        - 300000
